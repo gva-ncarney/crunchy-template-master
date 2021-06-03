@@ -10,7 +10,7 @@ jobs:
   template-list-make:
     name: update-list
     runs-on: ubuntu-latest
-    if: github.event.repository.name != 'crunchy-template-master'
+    if: github.event.repository.name == 'crunchy-template-master'
     steps:
       - uses: actions/checkout@v2
       - uses: gva-ncarney/template-repository-usage-action@main  # v1.1.0
