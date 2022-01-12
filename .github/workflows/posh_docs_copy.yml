@@ -1,0 +1,23 @@
+name: Posh Copy Markdown files to Document Repository
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  Copy:
+    runs-on: [ubuntu-latest]
+    if: github.event.repository.name != 'docs_main_repo'
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v2
+        
+    - name: Copy_Markdown
+      uses: andstor/copycat-action@v3
+      with:
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
+        src_path: /docs/.
+        dst_path: /docs/${{ github.event.repository.name }}/.
+        dst_owner: gva-ncarney
+        dst_repo_name: docs_main_repo
+        src_branch: main
+        dst_branch: main
+        clean: true
+        commit_message: ${{ github.event.repository.name }} - Markdown Collected
